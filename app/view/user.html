@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <title>React App</title>
+    <script>
+        function logout() {
+            var request = new XMLHttpRequest();
+            request.open('POST', '/logout', true);
+            request.onload = function () {
+                if (request.status >= 200 && request.status < 400) {
+                    console.log('logout succ.');
+                    window.location.href = 'http://127.0.0.1:8888';
+                } else {
+                    console.log('logout failed.');
+                }
+            };
+            request.send();
+        }
+    </script>
+</head>
+
+<body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div>
+    <h1>User page</h1>
+    <button onclick="logout()">Logout</button>
+</body>
+
+</html>
