@@ -40,7 +40,10 @@ router.post('/logout', (req, res, next) => {
     res.redirect('/')
 });
 
-//Redirect all undefined routes
+/**
+ * Redirect to login from unrecongnize routes
+*/
+
 router.get('*', (req, res) => {
     res.redirect('/');
 });
