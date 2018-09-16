@@ -1,4 +1,4 @@
-var config = require('./app-config');
+global.CONFIG = require('./config');
 var path = require('path');
 var fs = require('fs');
 var http = require('http');
@@ -7,6 +7,7 @@ var logger = require('morgan');
 var express = require('express');
 var bodyParser = require('body-parser');
 var routes = require('./routes');
+var userApi = require('./routes/user');
 var session = require('./session');
 var cors = require('cors')
 var cookieParser = require('cookie-parser');

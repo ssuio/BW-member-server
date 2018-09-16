@@ -1,44 +1,24 @@
 const path = require('path');
 const express = require('express');
 const router = express.Router();
-const authenticator = require('../authenticator');
+const { checkPermission } = require('./router-helper')
+const generalApi = require('./general');
+const userApi = require('./user');
 
-router.get('/', (req, res, next) => {
-    console.log('Root access.');
-    // console.log(req.session);
-    if (req.session.uid === undefined)
-        res.sendFile(path.join(__dirname, '..', '/view/login.html'));
-    else if (req.session && req.session.uid === 'admin')
-        res.sendFile(path.join(__dirname, '..', '/view/admin.html'));
-    else if (req.session && req.session.uid === 'user')
-        res.sendFile(path.join(__dirname, '..', '/view/user.html'));
-});
+/**
+ * General api
+*/
 
-router.post('/login', (req, res, next) => {
-    // console.log(req.session);
-    // console.log(req.body);
-    // req.session.uid = 'admin';
-    console.log('Access login.');
-    // console.log(req.body);
-    let id = req.body.id;
-    let pwd = req.body.pwd;
-    let result = authenticator.auth(id, pwd);
-    if(result.uid !== undefined){
-        req.session.uid = result.uid;
-        res.status(200).json({
-            'status': 'success'
-        });
-    }else{
-        res.status(401).json({
-            msg:result.msg
-        });
-    }
-});
+router.get('/', generalApi.base);
+router.post('/register', generalApi.register);
+router.post('/login', generalApi.login);
+router.post('/logout', generalApi.logout);
 
-router.post('/logout', (req, res, next) => {
-    req.session.uid = undefined;
-    res.redirect('/')
-});
+/**
+ * User api
+*/
+
+router.get('/user/get', checkPermission(), userApi.get);
 
 /**
  * Redirect to login from unrecongnize routes

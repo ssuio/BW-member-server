@@ -1,3 +1,5 @@
+const dbService = require('./model/db-service');
+
 function auth(id, pwd) {
     if (id === 'admin' && pwd === 'admin') {
         return {

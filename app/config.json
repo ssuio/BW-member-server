@@ -1,0 +1,8 @@
+{
+    "database": {
+        "type": "redis",
+        "host": "127.0.0.1",
+        "pwd": "Abcd1234",
+        "port": 6379
+    }
+}
